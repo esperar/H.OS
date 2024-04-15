@@ -1,9 +1,28 @@
 org 0x7C00
 bits 16
 
+start:
+    jmp main
 
+:
+: Prints a string to the screen
+: Params:
+:   - ds:si points to string
 
+puts:
+    : save registers we will modify
+    push si
+    push ax
 
+.loop:
+    lodsb   : loads next character in al
+    or al, al : verify if next character is null?
+    jz .done
+
+.done:
+    pop ax
+    pop si
+    ret
 
 main:
     : setup data segments
